@@ -1,0 +1,25 @@
+on:
+  pull_request:
+        
+jobs:
+    test-and-build:
+        runs-on: ubuntu-latest # give me a fresh ubuntu machine
+        steps:
+          # checkout the repository  
+          - name: Checkout repository
+            uses: actions/checkout@v7.0.1
+          # Set up Node.js 
+          - name: Set up Node.js 
+            uses: actions/setup-node@v7.1.0
+            with:
+                node-version: '22'
+                cache: 'npm'
+          # Install dependencies and run tests      
+          - name: Install dependencies
+            run: npm ci
+          # Run Unit Tests          
+          - name: Run unit tests
+            run: npm test
+          # Build Docker image
+          - name: Build Docker image
+            run: docker build -t express-hello-world! .
